@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Avatar : MonoBehaviour
@@ -21,6 +22,10 @@ public class Avatar : MonoBehaviour
 	private float tall = 224 * 0.75f;
 	private float prevTall = 224 * 0.75f;
 	private float zScale = 1;
+
+	public SpriteRenderer ScoreSprite;
+	public Sprite[] Score;
+	public ParticleSystem particleSystem;
 
 	private void Awake()
 	{
@@ -352,5 +357,39 @@ public class Avatar : MonoBehaviour
 		sk.lineRenderer.material = skeletonMaterial;
 
 		skeletons.Add(sk);
+	}
+
+	public void reactScore(int num)
+	{
+		var main = particleSystem.main;
+		if (num == 0)
+		{
+			ScoreSprite.sprite = Score[0];
+			main.startColor = new Color(0.541f, 0f, 0.317f); // #8A0051
+		}
+		else if (num == 1)
+		{
+			ScoreSprite.sprite = Score[1];
+			main.startColor = Color.cyan;
+		}
+		else if (num == 2)
+		{
+			ScoreSprite.sprite = Score[2];
+			main.startColor = Color.green;
+		}
+		else
+		{
+			ScoreSprite.sprite = Score[3];
+			main.startColor = Color.magenta;
+		}
+		particleSystem.Play();
+		StartCoroutine(SetSprite());
+	}
+
+	IEnumerator SetSprite()
+	{
+		ScoreSprite.gameObject.SetActive(true);
+		yield return new WaitForSeconds(1.0f);
+		ScoreSprite.gameObject.SetActive(false);
 	}
 }

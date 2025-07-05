@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class SelectedSongPanel : MonoBehaviour
 {
+    private SongAsset selectedSong;
     [SerializeField]protected TextMeshProUGUI title;
     [SerializeField]protected TextMeshProUGUI Artist;
     [SerializeField]protected TextMeshProUGUI Time;
@@ -30,6 +31,7 @@ public class SelectedSongPanel : MonoBehaviour
 
     public void DisplaySong(SongAsset song)
     {
+        selectedSong = song;
         audio.clip = song.audioClip;
         audio.Play();
         title.text = song.songTitle;
@@ -57,18 +59,8 @@ public class SelectedSongPanel : MonoBehaviour
             ava.Rotate(0, -10, 0);
         }
 
-        GameManager.gameManager.restart(audio.clip.length, temp, tempLoc);
+        GameManager.gameManager.restart(audio.clip.length, temp, tempLoc, selectedSong);
         songPanel.SetActive(false);
         // 게임매니저 스타트
-    }
-
-    IEnumerator WaitForSongToEnd(float sec, Quaternion originRotation, Vector3 originLoc)
-    {
-        Debug.Log("restart");
-        yield return new WaitForSeconds(sec);
-        Debug.Log("노래끝");
-        ava.rotation = originRotation;
-        ava.localPosition = originLoc;
-        songPanel.SetActive(true);
     }
 }

@@ -7,4 +7,5 @@ public class SongAsset : ScriptableObject
     public string artist;
     public AudioClip audioClip;
     public Sprite coverImage;
+    public float highScore;
 }

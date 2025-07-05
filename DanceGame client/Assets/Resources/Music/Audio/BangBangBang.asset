@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8a183ade463c4bcbabaa56d924b8978, type: 3}
+  m_Script: {fileID: 11500000, guid: 9654829cc68c54053bcecafb5aea46c4, type: 3}
   m_Name: BangBangBang
   m_EditorClassIdentifier: 
   songTitle: BangBangBang
   artist: BigBang
-  audioClip: {fileID: 8300000, guid: 1699257a11514499a869f9d6fc6905de, type: 3}
-  coverImage: {fileID: 21300000, guid: c345b67bc8aa14892ada8bea29d5e97a, type: 3}
+  audioClip: {fileID: 8300000, guid: db1dcfe8bc3044a069774108b77c4490, type: 3}
+  coverImage: {fileID: 21300000, guid: aacc410e83fb14f209ce5641784b53a3, type: 3}

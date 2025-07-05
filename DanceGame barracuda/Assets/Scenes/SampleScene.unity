@@ -389,7 +389,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rawImage: {fileID: 1112161217}
   scale: 1
-  useWebCam: 1
+  useWebCam: 0
   webCamIndex: 0
 --- !u!4 &361983549 stripped
 Transform:
@@ -1010,7 +1010,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f4f67c3f7b6e41f19a32954f7316bf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ip: 192.168.0.16
+  ip: 127.0.0.1
   port: 8001
 --- !u!1 &1617813195 stripped
 GameObject:

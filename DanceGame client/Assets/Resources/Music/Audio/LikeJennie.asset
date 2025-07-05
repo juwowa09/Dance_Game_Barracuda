@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8a183ade463c4bcbabaa56d924b8978, type: 3}
+  m_Script: {fileID: 11500000, guid: 9654829cc68c54053bcecafb5aea46c4, type: 3}
   m_Name: LikeJennie
   m_EditorClassIdentifier: 
   songTitle: LikeJennie
   artist: Jennie
-  audioClip: {fileID: 8300000, guid: f74cc09c179484cb4819919fc60ec6b9, type: 3}
-  coverImage: {fileID: 21300000, guid: 4b7bfb1eb52a245498d3f6ddd025c996, type: 3}
+  audioClip: {fileID: 8300000, guid: 8812a4f8d58ea4c1db961f5625a4fe26, type: 3}
+  coverImage: {fileID: 21300000, guid: 3f912e7f4473d4216848a187340c0114, type: 3}

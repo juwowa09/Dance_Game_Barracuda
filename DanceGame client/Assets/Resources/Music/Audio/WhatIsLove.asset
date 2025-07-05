@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8a183ade463c4bcbabaa56d924b8978, type: 3}
+  m_Script: {fileID: 11500000, guid: 9654829cc68c54053bcecafb5aea46c4, type: 3}
   m_Name: WhatIsLove
   m_EditorClassIdentifier: 
   songTitle: What Is Love?
   artist: Twice
-  audioClip: {fileID: 8300000, guid: a703c814ca1bd4eef9983a19dbabc5bf, type: 3}
-  coverImage: {fileID: 21300000, guid: 8f1678822df1941c9984ad2f0f0b77f4, type: 3}
+  audioClip: {fileID: 8300000, guid: 12f946abcea5d4fcabbb69f15140b497, type: 3}
+  coverImage: {fileID: 21300000, guid: c01c2942d41e14a61832857404c77139, type: 3}

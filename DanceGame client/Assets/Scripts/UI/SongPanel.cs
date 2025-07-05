@@ -16,7 +16,7 @@ public class SongPanel : MonoBehaviour
     void Start()
     {
         allSongs = Resources.LoadAll<SongAsset>("Music/Audio");
-        
+        // Debug.Log(allSongs.Length);
         foreach(var song in allSongs)
         {
             GameObject songBt = Instantiate(m_SongButton, m_ScrollViewContent);
