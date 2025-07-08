@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,10 +8,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager gameManager;
     [SerializeField] protected Transform ava;
-    [Tooltip("Song panel.")]
-    [SerializeField] protected GameObject songPanel;
     [Tooltip("result panel.")]
-    [SerializeField] protected GameObject resultPanel;
+    [SerializeField] protected ResultPanel resultPanel;
 
     [SerializeField] protected Animator ansAnimator;
     [SerializeField] protected Animator posAnimator;
@@ -84,9 +83,11 @@ public class GameManager : MonoBehaviour
         Debug.Log(weightedScore);
         if (song.highScore < weightedScore)
             song.highScore = weightedScore;
+        SaveScore(song);
         ava.rotation = quat;
         ava.localPosition = loc;
-        songPanel.SetActive(true);
+        resultPanel.gameObject.SetActive(true);
+        resultPanel.display(song, weightedScore);
     }
 
     IEnumerator Judgement()
@@ -145,9 +146,12 @@ public class GameManager : MonoBehaviour
         return Mathf.Clamp01((dot / denominator + 1f) / 2f); // → 0~1로 정규화
     }
 
-    // Update is called once per frame
-    void Update()
+    void SaveScore(SongAsset song)
     {
-        
+        string json = JsonUtility.ToJson(song);
+        string path = Application.persistentDataPath + "/SongScores/" + song.songTitle + ".json";
+        Directory.CreateDirectory(Application.persistentDataPath + "/SongScores");
+        File.WriteAllText(path, json);
+        Debug.Log("Good write");
     }
 }

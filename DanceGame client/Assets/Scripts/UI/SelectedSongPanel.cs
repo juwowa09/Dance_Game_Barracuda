@@ -11,6 +11,7 @@ public class SelectedSongPanel : MonoBehaviour
     [SerializeField]protected TextMeshProUGUI title;
     [SerializeField]protected TextMeshProUGUI Artist;
     [SerializeField]protected TextMeshProUGUI Time;
+    [SerializeField] protected TextMeshProUGUI HighScore;
     [SerializeField] protected Image TitleImg;
     [SerializeField] protected AudioSource audio;
     [SerializeField] protected Button btn;
@@ -23,12 +24,6 @@ public class SelectedSongPanel : MonoBehaviour
         btn.onClick.AddListener(PlaySong);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void DisplaySong(SongAsset song)
     {
         selectedSong = song;
@@ -36,6 +31,7 @@ public class SelectedSongPanel : MonoBehaviour
         audio.Play();
         title.text = song.songTitle;
         Artist.text = song.artist;
+        HighScore.text = song.highScore.ToString("F2");
         Time.text = (int)song.audioClip.length/60 + ":" + (((int)song.audioClip.length % 60 < 10) ? ("0" + (int)song.audioClip.length % 60) : (int)song.audioClip.length % 60);
         TitleImg.sprite = song.coverImage;
     }
