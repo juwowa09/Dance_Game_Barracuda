@@ -1,32 +1,32 @@
 ﻿public enum PositionIndex
 {
-	RightShoulderBend = 0,
-	RightForearmBend,
-	RightHand,
-	RightThumb2,
-	RightMid1,
-
-	LeftShoulderBend,
+	LeftShoulderBend = 0,
 	LeftForearmBend,
 	LeftHand,
 	LeftThumb2,
 	LeftMid1,
-
-	LeftEar,
-	LeftEye,
+	
+	RightShoulderBend,
+	RightForearmBend,
+	RightHand,
+	RightThumb2,
+	RightMid1,
+	
 	RightEar,
 	RightEye,
+	LeftEar,
+	LeftEye,
 	Nose,
-
-	RightThighBend,
-	RightShin,
-	RightFoot,
-	RightToe,
 
 	LeftThighBend,
 	LeftShin,
 	LeftFoot,
 	LeftToe,
+
+	RightThighBend,
+	RightShin,
+	RightFoot,
+	RightToe,
 
 	AbdomenUpper,
 
