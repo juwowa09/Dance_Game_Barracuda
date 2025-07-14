@@ -71,7 +71,7 @@ public class GameManager : MonoBehaviour
         {
             yield return new WaitForSeconds(interval);
             yield return StartCoroutine(Judgement());
-            timer += (interval + 0.5f);
+            timer += (interval + 0.3f);
             t++;
         }
 
@@ -80,10 +80,9 @@ public class GameManager : MonoBehaviour
         float pointPerUnit = 100f / t;
         float weightedScore =
             (perfect * 1.0f + great * 0.75f + good * 0.5f + bad * 0.25f) * pointPerUnit;
-        Debug.Log(weightedScore);
+        // Debug.Log(weightedScore);
         if (song.highScore < weightedScore)
             song.highScore = weightedScore;
-        SaveScore(song);
         ava.rotation = quat;
         ava.localPosition = loc;
         resultPanel.gameObject.SetActive(true);
@@ -94,12 +93,12 @@ public class GameManager : MonoBehaviour
     {
         HumanPose pose1 = new HumanPose();
         ansHandler.GetHumanPose(ref pose1);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.3f);
         HumanPose pose2 = new HumanPose();
         posHandler.GetHumanPose(ref pose2);
         
         float similarity = CompareLimbPose(pose1, pose2); // 유사도 (작을수록 유사)
-        Debug.Log("simliarity: " + similarity);
+        // Debug.Log("simliarity: " + similarity);
         if (similarity < 0.925f)
         {
             avatar.reactScore(0);
@@ -144,14 +143,5 @@ public class GameManager : MonoBehaviour
             return 0f;
 
         return Mathf.Clamp01((dot / denominator + 1f) / 2f); // → 0~1로 정규화
-    }
-
-    void SaveScore(SongAsset song)
-    {
-        string json = JsonUtility.ToJson(song);
-        string path = Application.persistentDataPath + "/SongScores/" + song.songTitle + ".json";
-        Directory.CreateDirectory(Application.persistentDataPath + "/SongScores");
-        File.WriteAllText(path, json);
-        Debug.Log("Good write");
     }
 }

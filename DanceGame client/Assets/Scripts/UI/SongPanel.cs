@@ -20,9 +20,6 @@ public class SongPanel : MonoBehaviour
         // Debug.Log(allSongs.Length);
         foreach(var song in allSongs)
         {
-            song.highScore = LoadUserScore(song).highScore;
-            
-            Debug.Log("Good Load Score");
             GameObject songBt = Instantiate(m_SongButton, m_ScrollViewContent);
             TextMeshProUGUI btText = songBt.GetComponentInChildren<TextMeshProUGUI>();
             
@@ -36,27 +33,5 @@ public class SongPanel : MonoBehaviour
             });
         }
         m_SelectedSongPanel.DisplaySong(allSongs[0]);
-    }
-    private SongAsset LoadUserScore(SongAsset song)
-    {
-        string path = Application.persistentDataPath + "/SongScores/" + song.songTitle + ".json";
-        
-        if(File.Exists(path))
-        {
-            string json = File.ReadAllText(path);
-            JsonUtility.FromJsonOverwrite(json, song);  // 덮어쓰기!
-            return song;
-        }
-        else
-        {
-            return song;
-        }
-    }
-
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

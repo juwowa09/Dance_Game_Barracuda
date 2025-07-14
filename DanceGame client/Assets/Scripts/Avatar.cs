@@ -176,6 +176,7 @@ public class Avatar : MonoBehaviour
 			if (jointPoint.child != null)
 			{
 				jointPoint.inverse = GetInverse(jointPoint, jointPoint.child, forward);
+				// 본이 아무 회전도 하지 않은 상태처럼 만들어주는 기준 회전값
 				jointPoint.inverseRotation = jointPoint.inverse * jointPoint.initRotation;
 			}
 		}
@@ -239,12 +240,19 @@ public class Avatar : MonoBehaviour
 		float rotationSpeed = 10f;
 
 		// Movement and rotatation of center.
-		Vector3 forward = TriangleNormal(jointPoints[PositionIndex.Hip.Int()].pos3D, jointPoints[PositionIndex.LeftThighBend.Int()].pos3D, jointPoints[PositionIndex.RightThighBend.Int()].pos3D);
-		jointPoints[PositionIndex.Hip.Int()].transform.position = jointPoints[PositionIndex.Hip.Int()].pos3D * 0.005f + new Vector3(initPosition.x, initPosition.y, initPosition.z + dz);
+		Vector3 forward = TriangleNormal(jointPoints[PositionIndex.Hip.Int()].pos3D, 
+			jointPoints[PositionIndex.LeftThighBend.Int()].pos3D, 
+			jointPoints[PositionIndex.RightThighBend.Int()].pos3D);
+		
+		jointPoints[PositionIndex.Hip.Int()].transform.position = jointPoints[PositionIndex.Hip.Int()].pos3D * 0.005f 
+		                                                          + new Vector3(initPosition.x, initPosition.y, initPosition.z + dz);
+		
 		Quaternion target= Quaternion.LookRotation(forward) * jointPoints[PositionIndex.Hip.Int()].inverseRotation;
-		jointPoints[PositionIndex.Hip.Int()].transform.rotation =
-			Quaternion.Slerp(jointPoints[PositionIndex.Hip.Int()].transform.rotation, target,
-				Time.deltaTime * rotationSpeed);
+		
+		jointPoints[PositionIndex.Hip.Int()].transform.rotation = 
+			Quaternion.Slerp(jointPoints[PositionIndex.Hip.Int()].transform.rotation, 
+			target, 
+			Time.deltaTime * rotationSpeed);
 
 		// Rotate each of the bones.
 		foreach (JointPoint jointPoint in jointPoints)
@@ -335,6 +343,7 @@ public class Avatar : MonoBehaviour
 
 	private Quaternion GetInverse(JointPoint p1, JointPoint p2, Vector3 forward)
 	{
+		// lookrotation만 적용하면 bone의 초기 회전값을 알 수 있고 그 이후 inverse를 하면, 해당 초기 회전값을 없앨 수 있고 아예 bone 에 회전이 없는 상태
 		return Quaternion.Inverse(Quaternion.LookRotation(p1.transform.position - p2.transform.position, forward));
 	}
 
