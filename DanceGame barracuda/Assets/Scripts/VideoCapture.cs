@@ -56,7 +56,7 @@ public class VideoCapture : MonoBehaviour
 
 		rectTransform.sizeDelta = new Vector2(rawImageWidth, rawImageWidth * webCamTexture.height / webCamTexture.width);
 		float aspect = (float)webCamTexture.width / webCamTexture.height;
-		this.transform.localScale = new Vector3(aspect, 1, 1) * scale;
+		this.transform.localScale = new Vector3(-aspect, 1, 1) * scale;
 		this.GetComponent<Renderer>().material.mainTexture = webCamTexture;
 
 		InitializeTexture();
