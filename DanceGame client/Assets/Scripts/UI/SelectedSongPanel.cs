@@ -53,6 +53,9 @@ public class SelectedSongPanel : MonoBehaviour
         else if (song.Equals("haidilao"))
         {
             ava.Rotate(0, -10, 0);
+        }else if (song.Equals("jump"))
+        {
+            ava.Rotate(0,-30,0);
         }
 
         GameManager.gameManager.restart(audio.clip.length, temp, tempLoc, selectedSong);

@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
     private int great = 0;
     private int good = 0;
     private int bad = 0;
+
+    private Coroutine scoreCoroutine;
     
     [Tooltip("Play Button")] [SerializeField]
     protected Button m_PlayButton;
@@ -70,7 +72,8 @@ public class GameManager : MonoBehaviour
         while (timer < sec)
         {
             yield return new WaitForSeconds(interval);
-            yield return StartCoroutine(Judgement());
+            scoreCoroutine = StartCoroutine(Judgement());
+            yield return scoreCoroutine;
             timer += (interval + 0.3f);
             t++;
         }
