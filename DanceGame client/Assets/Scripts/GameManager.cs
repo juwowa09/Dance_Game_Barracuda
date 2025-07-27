@@ -7,21 +7,22 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public static GameManager gameManager;
-    [SerializeField] protected Transform ava;
+    [SerializeField] public Transform ava;
     [Tooltip("result panel.")]
     [SerializeField] protected ResultPanel resultPanel;
+    [SerializeField] protected SongPanel songPanel;
+    [SerializeField] protected GameObject initPanel;
+    [SerializeField] protected GameObject avatarPanel;
 
     [SerializeField] protected Animator ansAnimator;
     [SerializeField] protected Animator posAnimator;
-    [SerializeField] protected Avatar avatar;
+    [SerializeField] public Avatar avatar;
     private HumanPoseHandler ansHandler;
     private HumanPoseHandler posHandler;
     private int perfect = 0;
     private int great = 0;
     private int good = 0;
     private int bad = 0;
-    
-    
 
     private Coroutine scoreCoroutine;
     
@@ -52,6 +53,10 @@ public class GameManager : MonoBehaviour
     {
         ansHandler = new HumanPoseHandler(ansAnimator.avatar, ansAnimator.transform);
         posHandler = new HumanPoseHandler(posAnimator.avatar, posAnimator.transform);
+        songPanel.gameObject.SetActive(false);
+        resultPanel.gameObject.SetActive(false);
+        avatarPanel.gameObject.SetActive(false);
+        initPanel.SetActive(true);
     }
 
     public void restart(float sec, Quaternion quat, Vector3 loc,SongAsset song)

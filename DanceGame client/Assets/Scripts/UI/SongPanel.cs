@@ -14,6 +14,7 @@ public class SongPanel : MonoBehaviour
     [SerializeField] protected SelectedSongPanel m_SelectedSongPanel;
     private SongAsset[] allSongs;
     private Sprite[] SongImg;
+    public GameObject initPanel;
     void Start()
     {
         allSongs = Resources.LoadAll<SongAsset>("Music/Audio");
@@ -33,5 +34,11 @@ public class SongPanel : MonoBehaviour
             });
         }
         m_SelectedSongPanel.DisplaySong(allSongs[0]);
+    }
+
+    public void Back()
+    {
+        initPanel.SetActive(true);
+        this.gameObject.SetActive(false);
     }
 }

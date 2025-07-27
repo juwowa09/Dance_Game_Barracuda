@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading;
 using UnityEngine;
 
-public class udpReceiver : MonoBehaviour
+public class ServerUDP : MonoBehaviour
 {
     public Avatar avatar;
     private UdpClient receiver;
