@@ -4,7 +4,10 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/TirgamesAssets/PBRStageEquipment/Scenes/PBRStageEquipmentDemo.unity
+    guid: 3212f2856c4704f57b37de6ffa8daefc
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 19fdde160e7d5419eb9ff88541e3e904, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 849bf51843651490a95a1c50729a5afc, type: 2}

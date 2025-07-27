@@ -93,11 +93,13 @@ public class Avatar : MonoBehaviour
 		// Right arm.
 		jointPoints[PositionIndex.RightShoulderBend.Int()].child = jointPoints[PositionIndex.RightForearmBend.Int()];
 		jointPoints[PositionIndex.RightForearmBend.Int()].child = jointPoints[PositionIndex.RightHand.Int()];
+		// jointPoints[PositionIndex.RightHand.Int()].child = jointPoints[PositionIndex.RightThumb2.Int()];
 		jointPoints[PositionIndex.RightForearmBend.Int()].parent = jointPoints[PositionIndex.RightShoulderBend.Int()];
 
 		// Left arm.
 		jointPoints[PositionIndex.LeftShoulderBend.Int()].child = jointPoints[PositionIndex.LeftForearmBend.Int()];
 		jointPoints[PositionIndex.LeftForearmBend.Int()].child = jointPoints[PositionIndex.LeftHand.Int()];
+		// jointPoints[PositionIndex.LeftHand.Int()].child = jointPoints[PositionIndex.LeftThumb2.Int()];
 		jointPoints[PositionIndex.LeftForearmBend.Int()].parent = jointPoints[PositionIndex.LeftShoulderBend.Int()];
 
 		// Fase.

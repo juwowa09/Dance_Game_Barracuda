@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
     private int great = 0;
     private int good = 0;
     private int bad = 0;
+    
+    
 
     private Coroutine scoreCoroutine;
     
@@ -64,18 +66,23 @@ public class GameManager : MonoBehaviour
         good = 0; 
         bad = 0;
         // 점수판정 실행
+        float reactTimer = 0f;
         float timer = 0f;
         float interval = 5.0f;
         perfect = 0;
         int t = 0;
 
-        while (timer < sec)
+        while (timer < sec + 2.0f)
         {
-            yield return new WaitForSeconds(interval);
-            scoreCoroutine = StartCoroutine(Judgement());
-            yield return scoreCoroutine;
-            timer += (interval + 0.3f);
-            t++;
+            if (reactTimer >= interval)
+            {
+                StartCoroutine(Judgement());
+                reactTimer = 0;
+                t++;
+            }
+            reactTimer += Time.deltaTime;
+            timer += Time.deltaTime;
+            yield return null;
         }
 
         // 결과 출력

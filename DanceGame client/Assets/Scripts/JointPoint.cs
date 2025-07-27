@@ -8,8 +8,6 @@ public class JointPoint
 	// public float score2D;
 
 	public Vector3 pos3D = new Vector3();
-	public Vector3 now3D = new Vector3();
-	public Vector3[] prevPos3D = new Vector3[6];
 	public float score3D;
 
 	// Bones.
@@ -22,7 +20,4 @@ public class JointPoint
 	public JointPoint parent;
 
 	// Kalman filter.
-	public Vector3 p = new Vector3();
-	public Vector3 x = new Vector3();
-	public Vector3 k = new Vector3();
 }
