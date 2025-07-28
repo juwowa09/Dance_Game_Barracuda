@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9654829cc68c54053bcecafb5aea46c4, type: 3}
+  m_Name: SodaPop
+  m_EditorClassIdentifier: 
+  songTitle: SodaPop
+  artist: SAjA Boys
+  audioClip: {fileID: 8300000, guid: 8d8fb5bb8e751494ab0002319551b4c7, type: 3}
+  coverImage: {fileID: 21300000, guid: 28d7499478cf04288a34c0c1bed9b280, type: 3}
+  highScore: 0

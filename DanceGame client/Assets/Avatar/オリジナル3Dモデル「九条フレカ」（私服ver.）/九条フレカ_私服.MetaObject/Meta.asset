@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63b589176a34b344b9ccbee2b7e7114a, type: 3}
+  m_Name: Meta
+  m_EditorClassIdentifier: 
+  ExporterVersion: UniVRM-0.87.0
+  Title: "\u4E5D\u6761\u30D5\u30EC\u30AB_\u79C1\u670D"
+  Version: 1.0.0
+  Author: Avex Technologies Inc.
+  ContactInformation: 'ribla-cs@av.avex.co.jp '
+  Reference: 
+  Thumbnail: {fileID: 2800000, guid: d8eb8f42db82a453aa3e9fa94f5a0610, type: 3}
+  AllowedUser: 2
+  ViolentUssage: 1
+  SexualUssage: 1
+  CommercialUssage: 1
+  OtherPermissionUrl: https://avex-technologies.com/riblas/lab/chara_terms.html
+  LicenseType: 8
+  OtherLicenseUrl: https://avex-technologies.com/riblas/lab/chara_terms.html
