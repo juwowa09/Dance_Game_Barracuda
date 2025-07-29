@@ -133,7 +133,7 @@ PrefabInstance:
     - target: {fileID: 3819297480166360562, guid: c39b40aadfb104e42b8560433b03194c, type: 3}
       propertyPath: m_VideoClip
       value: 
-      objectReference: {fileID: 32900000, guid: 81a1cf75ad15540c5a083177d704b369, type: 3}
+      objectReference: {fileID: 32900000, guid: 4cd945a58967b4b2086a329b9e67d8f0, type: 3}
     - target: {fileID: 3819297480166360562, guid: c39b40aadfb104e42b8560433b03194c, type: 3}
       propertyPath: m_PlaybackSpeed
       value: 1
@@ -389,7 +389,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rawImage: {fileID: 1112161217}
   scale: 1
-  useWebCam: 1
+  useWebCam: 0
   webCamIndex: 0
   udpSender: {fileID: 1602102004}
 --- !u!4 &361983549 stripped
