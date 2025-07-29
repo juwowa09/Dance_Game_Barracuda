@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour
     private int bad = 0; 
     [SerializeField] public Animator flame1;
     [SerializeField] public Animator flame2;
+    
+    private float totalMovementDistance = 0f;
 
     private Coroutine scoreCoroutine;
     
@@ -107,6 +109,18 @@ public class GameManager : MonoBehaviour
 
     IEnumerator WaitForSong(float sec, Quaternion quat, Vector3 loc, SongAsset song)
     {
+        Vector3[] previousPositions = new Vector3[avatar.jointPoints.Length];
+        totalMovementDistance = 0f;
+        
+        for (int i = 0; i < avatar.jointPoints.Length; i++)
+        {
+            var jp = avatar.jointPoints[i];
+            if (jp != null && jp.transform != null)
+            {
+                previousPositions[i] = jp.transform.position;
+            }
+        }
+        
         perfect = 0;
         great = 0;
         good = 0; 
@@ -120,6 +134,18 @@ public class GameManager : MonoBehaviour
 
         while (timer < sec + 2.0f)
         {
+            for (int i = 0; i < avatar.jointPoints.Length; i++)
+            {
+                var jp = avatar.jointPoints[i];
+                if (jp != null && jp.transform != null)
+                {
+                    Vector3 current = jp.transform.position;
+                    float distance = Vector3.Distance(previousPositions[i], current);
+                    totalMovementDistance += distance;
+
+                    previousPositions[i] = current; // 현재 위치를 저장
+                }
+            }
             if (reactTimer >= interval)
             {
                 StartCoroutine(Judgement());
@@ -142,7 +168,7 @@ public class GameManager : MonoBehaviour
         ava.rotation = quat;
         ava.localPosition = loc;
         resultPanel.gameObject.SetActive(true);
-        resultPanel.display(song, weightedScore);
+        resultPanel.display(song, weightedScore, totalMovementDistance);
     }
 
     IEnumerator Judgement()
