@@ -389,8 +389,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rawImage: {fileID: 1112161217}
   scale: 1
-  useWebCam: 0
+  useWebCam: 1
   webCamIndex: 0
+  udpSender: {fileID: 1602102004}
 --- !u!4 &361983549 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b4b9cfd005a5844cfa866df602146e4d, type: 3}
@@ -976,6 +977,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1602102002}
   - component: {fileID: 1602102003}
+  - component: {fileID: 1602102004}
   m_Layer: 0
   m_Name: udpServer
   m_TagString: Untagged
@@ -1012,6 +1014,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ip: 127.0.0.1
   port: 8001
+--- !u!114 &1602102004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1602102001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91988774feb5e489d8d0ac507a1ea6aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  remoteIP: 127.0.0.1
+  remotePort: 9050
 --- !u!1 &1617813195 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100244, guid: bc8d4e374324bb74c8a5f0b9207c33f4, type: 3}
