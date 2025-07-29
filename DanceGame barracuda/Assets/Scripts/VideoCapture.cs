@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
 
@@ -18,6 +21,8 @@ public class VideoCapture : MonoBehaviour
 	private VideoPlayer videoPlayer;
 	private int rawImageWidth = 2560;
 	private int width, height;
+
+	public UDPSender udpSender;
 
 	private void Awake()
 	{
@@ -46,20 +51,22 @@ public class VideoCapture : MonoBehaviour
 		{
 			webCamIndex = 0;
 		}
-
-		webCamTexture = new WebCamTexture(devices[webCamIndex].name);
+		//해상도 제한
+		webCamTexture = new WebCamTexture(devices[webCamIndex].name,512,512);
+		webCamTexture.Play();
 
 		RectTransform rectTransform = rawImage.GetComponent<RectTransform>();
 		rawImage.texture = webCamTexture;
-
-		webCamTexture.Play();
-
+		
+		
 		rectTransform.sizeDelta = new Vector2(rawImageWidth, rawImageWidth * webCamTexture.height / webCamTexture.width);
 		float aspect = (float)webCamTexture.width / webCamTexture.height;
 		this.transform.localScale = new Vector3(-aspect, 1, 1) * scale;
 		this.GetComponent<Renderer>().material.mainTexture = webCamTexture;
 
 		InitializeTexture();
+		
+		StartCoroutine(SendWebcamFrames());
 	}
 
 	private void PlayVideo()
@@ -114,5 +121,39 @@ public class VideoCapture : MonoBehaviour
 		};
 
 		camera.targetTexture = renderTexture;
+	}
+	
+	IEnumerator SendWebcamFrames()
+	{
+		while (true)
+		{
+			if (webCamTexture.isPlaying && webCamTexture.didUpdateThisFrame)
+			{
+				// 1. RenderTexture 생성 (저해상도)
+				RenderTexture rt = new RenderTexture(160, 120, 0);
+				Graphics.Blit(webCamTexture, rt);
+
+// 2. Texture2D에 읽기
+				RenderTexture.active = rt;
+				Texture2D resized = new Texture2D(160, 120, TextureFormat.RGB24, false);
+				resized.ReadPixels(new Rect(0, 0, 160, 120), 0, 0);
+				resized.Apply();
+				RenderTexture.active = null;
+
+// 3. JPG 인코딩
+				byte[] jpgBytes = resized.EncodeToJPG(30);
+
+// 4. 정리 및 전송
+				Destroy(resized);
+				rt.Release();
+
+				udpSender.Send(jpgBytes);
+				yield return new WaitForSeconds(0.02f); // 50fps 정도
+			}
+			else
+			{
+				yield return null;
+			}
+		}
 	}
 }

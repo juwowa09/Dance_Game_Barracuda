@@ -14,15 +14,17 @@ public class GameManager : MonoBehaviour
     [SerializeField] protected GameObject avatarPanel;
 
     [SerializeField] public Transform ava;
-    [SerializeField] protected Animator ansAnimator;
-    [SerializeField] protected Animator posAnimator;
+    [SerializeField] public Animator ansAnimator;
+    [SerializeField] public Animator posAnimator;
     [SerializeField] public Avatar avatar;
     private HumanPoseHandler ansHandler;
     private HumanPoseHandler posHandler;
     private int perfect = 0;
     private int great = 0;
     private int good = 0;
-    private int bad = 0;
+    private int bad = 0; 
+    [SerializeField] public Animator flame1;
+    [SerializeField] public Animator flame2;
 
     private Coroutine scoreCoroutine;
     
@@ -66,6 +68,13 @@ public class GameManager : MonoBehaviour
         // {
         //     Debug.Log("이 Animator는 Humanoid가 아닙니다.");
         // }
+    }
+
+    public void Replace()
+    {
+        Debug.Log("replace");
+        ansHandler = new HumanPoseHandler(ansAnimator.avatar, ansAnimator.transform);
+        posHandler = new HumanPoseHandler(posAnimator.avatar, posAnimator.transform);
     }
 
     public void restart(float sec, SongAsset song)
@@ -146,6 +155,8 @@ public class GameManager : MonoBehaviour
         
         float similarity = CompareLimbPose(pose1, pose2); // 유사도 (작을수록 유사)
         // Debug.Log("simliarity: " + similarity);
+        flame1.SetTrigger("go");
+        flame2.SetTrigger("go");
         if (similarity < 0.925f)
         {
             avatar.reactScore(0);

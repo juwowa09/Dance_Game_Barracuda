@@ -248,8 +248,11 @@ public class Avatar : MonoBehaviour
 		
 		jointPoints[PositionIndex.Hip.Int()].transform.position = jointPoints[PositionIndex.Hip.Int()].pos3D * 0.005f 
 		                                                          + new Vector3(initPosition.x, initPosition.y, initPosition.z + dz);
-		
-		Quaternion target= Quaternion.LookRotation(forward) * jointPoints[PositionIndex.Hip.Int()].inverseRotation;
+		Quaternion target = jointPoints[PositionIndex.Hip.Int()].transform.rotation;
+		if (forward != Vector3.zero)
+		{
+			 target = Quaternion.LookRotation(forward) * jointPoints[PositionIndex.Hip.Int()].inverseRotation;
+		}
 		
 		jointPoints[PositionIndex.Hip.Int()].transform.rotation = 
 			Quaternion.Slerp(jointPoints[PositionIndex.Hip.Int()].transform.rotation, 
@@ -264,20 +267,30 @@ public class Avatar : MonoBehaviour
 			if (jointPoint.parent != null)
 			{
 				Vector3 fv = jointPoint.parent.pos3D - jointPoint.pos3D;
-				targetRotation = Quaternion.LookRotation(jointPoint.pos3D - jointPoint.child.pos3D, fv) * jointPoint.inverseRotation;
+				if (jointPoint.pos3D - jointPoint.child.pos3D != Vector3.zero)
+				{
+					targetRotation = Quaternion.LookRotation(jointPoint.pos3D - jointPoint.child.pos3D, fv) * jointPoint.inverseRotation;
+					jointPoint.transform.rotation = Quaternion.Slerp(
+						jointPoint.transform.rotation,
+						targetRotation,
+						Time.deltaTime * rotationSpeed);
+				}
 			}
 			else if (jointPoint.child != null)
 			{
-				targetRotation = Quaternion.LookRotation(jointPoint.pos3D - jointPoint.child.pos3D, forward) * jointPoint.inverseRotation;
+				if (jointPoint.pos3D - jointPoint.child.pos3D != Vector3.zero)
+				{
+					targetRotation = Quaternion.LookRotation(jointPoint.pos3D - jointPoint.child.pos3D, forward) * jointPoint.inverseRotation;
+					jointPoint.transform.rotation = Quaternion.Slerp(
+						jointPoint.transform.rotation,
+						targetRotation,
+						Time.deltaTime * rotationSpeed);
+				}
 			}
 			else
 			{
 				continue; // 부모도 자식도 없으면 회전 스킵
 			}
-			jointPoint.transform.rotation = Quaternion.Slerp(
-				jointPoint.transform.rotation,
-				targetRotation,
-				Time.deltaTime * rotationSpeed);
 		}
 
 		// Head rotation.
@@ -288,7 +301,10 @@ public class Avatar : MonoBehaviour
 			jointPoints[PositionIndex.LeftEar.Int()].pos3D);
 
 		JointPoint head = jointPoints[PositionIndex.Head.Int()];
-		target = Quaternion.LookRotation(gaze, f) * head.inverseRotation;
+		
+		if(gaze != Vector3.zero)
+			target = Quaternion.LookRotation(gaze, f) * head.inverseRotation;
+		
 		head.transform.rotation = Quaternion.Slerp(
 			head.transform.rotation,
 			target,
@@ -300,13 +316,17 @@ public class Avatar : MonoBehaviour
 			lHand.pos3D,
 			jointPoints[PositionIndex.LeftMid1.Int()].pos3D,
 			jointPoints[PositionIndex.LeftThumb2.Int()].pos3D);
-		Quaternion lHandTarget = Quaternion.LookRotation(
-			jointPoints[PositionIndex.LeftThumb2.Int()].pos3D - jointPoints[PositionIndex.LeftMid1.Int()].pos3D,
-			lf) * lHand.inverseRotation;
-		lHand.transform.rotation = Quaternion.Slerp(
-			lHand.transform.rotation,
-			lHandTarget,
-			Time.deltaTime * rotationSpeed);
+		if (jointPoints[PositionIndex.LeftThumb2.Int()].pos3D - jointPoints[PositionIndex.LeftMid1.Int()].pos3D !=
+		    Vector3.zero)
+		{
+			Quaternion lHandTarget = Quaternion.LookRotation(
+				jointPoints[PositionIndex.LeftThumb2.Int()].pos3D - jointPoints[PositionIndex.LeftMid1.Int()].pos3D,
+				lf) * lHand.inverseRotation;
+			lHand.transform.rotation = Quaternion.Slerp(
+				lHand.transform.rotation,
+				lHandTarget,
+				Time.deltaTime * rotationSpeed);
+		}
 
 // Right hand rotation (Lerp 적용)
 		JointPoint rHand = jointPoints[PositionIndex.RightHand.Int()];
@@ -314,13 +334,19 @@ public class Avatar : MonoBehaviour
 			rHand.pos3D,
 			jointPoints[PositionIndex.RightThumb2.Int()].pos3D,
 			jointPoints[PositionIndex.RightMid1.Int()].pos3D);
-		Quaternion rHandTarget = Quaternion.LookRotation(
-			jointPoints[PositionIndex.RightThumb2.Int()].pos3D - jointPoints[PositionIndex.RightMid1.Int()].pos3D,
-			rf) * rHand.inverseRotation;
-		rHand.transform.rotation = Quaternion.Slerp(
-			rHand.transform.rotation,
-			rHandTarget,
-			Time.deltaTime * rotationSpeed);
+		
+		if (jointPoints[PositionIndex.RightThumb2.Int()].pos3D - jointPoints[PositionIndex.RightMid1.Int()].pos3D !=
+		    Vector3.zero)
+		{
+			Quaternion rHandTarget = Quaternion.LookRotation(
+				jointPoints[PositionIndex.RightThumb2.Int()].pos3D - jointPoints[PositionIndex.RightMid1.Int()].pos3D,
+				rf) * rHand.inverseRotation;
+			
+			rHand.transform.rotation = Quaternion.Slerp(
+				rHand.transform.rotation,
+				rHandTarget,
+				Time.deltaTime * rotationSpeed);
+		}
 		
 		foreach (Skeleton sk in skeletons)
 		{
