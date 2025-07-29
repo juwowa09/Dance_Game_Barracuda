@@ -38,6 +38,7 @@ public class UDPReceiver : MonoBehaviour
         { 
             tex.LoadImage(data, false); // false로 하면 텍스처 크기 유지 → GC 줄임
             rawImage.texture = tex;
+            rawImage.rectTransform.localScale = new Vector3(-1, 1, 1);
         }
     }
 

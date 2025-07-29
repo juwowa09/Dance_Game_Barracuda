@@ -169,6 +169,7 @@ public class GameManager : MonoBehaviour
         ava.localPosition = loc;
         resultPanel.gameObject.SetActive(true);
         resultPanel.display(song, weightedScore, totalMovementDistance);
+        StartCoroutine(CaptureVRScreen($"Screenshot_{System.DateTime.Now:yyyyMMdd_HHmmss}.png",Camera.main));
     }
 
     IEnumerator Judgement()
@@ -227,6 +228,42 @@ public class GameManager : MonoBehaviour
             return 0f;
 
         return Mathf.Clamp01((dot / denominator + 1f) / 2f); // → 0~1로 정규화
+    }
+    
+    public IEnumerator CaptureVRScreen(string fileName, Camera captureCam)
+    {
+        yield return new WaitForEndOfFrame();
+
+        int width = Screen.width;
+        int height = Screen.height;
+
+        RenderTexture rt = new RenderTexture(width, height, 24);
+        captureCam.targetTexture = rt;
+        Texture2D screenShot = new Texture2D(width, height, TextureFormat.RGB24, false);
+
+        captureCam.Render();
+        RenderTexture.active = rt;
+        screenShot.ReadPixels(new Rect(0, 0, width, height), 0, 0);
+        screenShot.Apply();
+
+        captureCam.targetTexture = null;
+        RenderTexture.active = null;
+        Destroy(rt);
+
+        byte[] bytes = screenShot.EncodeToPNG();
+        string path = System.IO.Path.Combine(Application.persistentDataPath, fileName);
+        System.IO.File.WriteAllBytes(path, bytes);
+
+        Debug.Log("Screenshot saved to: " + path);
+
+#if UNITY_ANDROID && !UNITY_EDITOR
+    using (AndroidJavaClass mediaScannerConnection = new AndroidJavaClass("android.media.MediaScannerConnection"))
+    using (AndroidJavaObject activity = new AndroidJavaClass("com.unity3d.player.UnityPlayer")
+             .GetStatic<AndroidJavaObject>("currentActivity"))
+    {
+        mediaScannerConnection.CallStatic("scanFile", activity, new string[] { path }, null, null);
+    }
+#endif
     }
 
 }
