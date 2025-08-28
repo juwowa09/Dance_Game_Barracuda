@@ -184,17 +184,17 @@ public class GameManager : MonoBehaviour
         // Debug.Log("simliarity: " + similarity);
         flame1.SetTrigger("go");
         flame2.SetTrigger("go");
-        if (similarity < 0.925f)
+        if (similarity < 0.88f)
         {
             avatar.reactScore(0);
             bad++;
         }
-        else if (similarity < 0.95f)
+        else if (similarity < 0.92f)
         {
             avatar.reactScore(1);
             good++;
         }
-        else if (similarity < 0.975f)
+        else if (similarity < 0.96f)
         {
             avatar.reactScore(2);
             great++;
